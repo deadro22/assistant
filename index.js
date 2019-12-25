@@ -28,10 +28,12 @@ mongoose
   .then(conn => {
     console.log("Connected");
   });
-
-app.use("/uploads", express.static("uploads"));
-app.use("/req", assistant);
-app.use("/", admin);
+app.use("/", (req, res) => {
+  res.send("TTTT");
+});
+//app.use("/uploads", express.static("uploads"));
+//app.use("/req", assistant);
+//app.use("/", admin);
 
 app.listen(process.env.PORT || 80, () => {
   console.log("listening on port 80");
