@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .formBox {
+        margin-top: 90px;
+        padding: 50px;
+      }
+      .formBox h1 {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+        font-size: 48px;
+      }
+      .inputBox {
+        position: relative;
+        box-sizing: border-box;
+        margin-bottom: 50px;
+      }
+      .inputBox .inputText {
+        position: absolute;
+        font-size: 24px;
+        line-height: 50px;
+        transition: 0.5s;
+        opacity: 0.5;
+      }
+      .inputBox .input {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 24px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
+      .focus .inputText {
+        transform: translateY(-30px);
+        font-size: 18px;
+        opacity: 1;
+        color: #00bcd4;
+      }
+      textarea {
+        height: 100px !important;
+      }
+      .button {
+        width: 100%;
+        height: 50px;
+        border: none;
+        outline: none;
+        background: #03a9f4;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/uploadQuestion" enctype="multipart/form-data" method="POST">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="formBox">
+            <form>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1>Contact form</h1>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="inputBox ">
+                    <input
+                      type="text"
+                      name="tag"
+                      class="input"
+                      placeholder="Tag"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="inputBox">
+                    <input
+                      type="text"
+                      name="title"
+                      class="input"
+                      placeholder="Titre ou question"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="inputBox">
+                    <input
+                      type="text"
+                      name="link"
+                      class="input"
+                      placeholder="Lien"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="inputBox">
+                    <input
+                      type="text"
+                      name="image"
+                      class="input"
+                      placeholder="Lien image"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="inputBox">
+                    <textarea
+                      class="input"
+                      name="def"
+                      placeholder="Description ou Definition"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-5">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01"
+                    >Upload</span
+                  >
+                </div>
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01"
+                    name="myFile"
+                  />
+                  <label class="custom-file-label" for="inputGroupFile01"
+                    >Choose file</label
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <input
+                    type="submit"
+                    name=""
+                    class="button"
+                    value="Send Message"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
