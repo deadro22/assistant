@@ -10,6 +10,11 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link
+      href="https://unpkg.com/filepond/dist/filepond.css"
+      rel="stylesheet"
+    />
+
     <title>Document</title>
     <style>
       body {
@@ -71,7 +76,7 @@
     </style>
   </head>
   <body>
-    <form action="/uploadQuestion" enctype="multipart/form-data" method="POST">
+    <form action="/uploadQuestion" method="POST">
       <div class="container-fluid">
         <div class="container">
           <div class="formBox">
@@ -142,22 +147,14 @@
                 </div>
               </div>
               <div class="input-group mb-5">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroupFileAddon01"
-                    >Upload</span
-                  >
-                </div>
                 <div class="custom-file">
                   <input
                     type="file"
-                    class="custom-file-input"
+                    class="filepond"
                     id="inputGroupFile01"
                     aria-describedby="inputGroupFileAddon01"
-                    name="myFile"
+                    name="thumb"
                   />
-                  <label class="custom-file-label" for="inputGroupFile01"
-                    >Choose file</label
-                  >
                 </div>
               </div>
               <div class="row">
@@ -175,5 +172,14 @@
         </div>
       </div>
     </form>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+      FilePond.registerPlugin(FilePondPluginFileEncode);
+      FilePond.setOptions({
+        stylePanelAspectRatio: 50 / 50
+      });
+      FilePond.parse(document.body);
+    </script>
   </body>
 </html>
