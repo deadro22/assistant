@@ -7,34 +7,32 @@ router.get("/", async (req, res) => {
     if (!req.query.title)
       return res.status(500).send("No provided Question tag");
     const ftag = await tags.find().select("-_id tag");
+
     let newTag = "";
     let searchTag = "";
-    //simple search code
-    /*ftag.forEach(tag => {
-      if (req.query.title.toLowerCase().includes(tag.tag)) {
-        newTag = tag.tag;
-      }
-    });*/
-    //advanced search code
     let finalUtt = 0;
-    ftag.forEach(tag => {
-      newTag = req.query.title;
-      let utt = 0;
-      for (i = 0; i < newTag.length; i++) {
-        if (newTag[i] == tag.tag[i]) {
-          utt++;
-          if (finalUtt < utt) {
-            finalUtt = utt;
-            if (finalUtt > 1) {
-              searchTag = tag.tag;
+    //search code
+    let wordArr = req.query.title.split(" ");
+    wordArr.forEach(word => {
+      ftag.forEach(tag => {
+        newTag = word;
+        let utt = 0;
+        for (i = 0; i < newTag.length; i++) {
+          if (newTag[i] == tag.tag[i]) {
+            utt++;
+            if (finalUtt < utt) {
+              finalUtt = utt;
+              if (finalUtt > 1) {
+                searchTag = tag.tag;
+              }
             }
           }
         }
-      }
+      });
     });
+
     if (searchTag == "" || searchTag == null)
       return res.status(404).send("Not found");
-    console.log(searchTag);
     const qst = await questions.findOne({
       tag: { $regex: searchTag, $options: "i" }
     });
