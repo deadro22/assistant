@@ -9,11 +9,13 @@ router.get("/dashboard", (req, res) => {
 
 router.get("/voice/:id", async (req, res) => {
   const result = await questions.findOne({ _id: req.params.id });
-  const link = `data:${
-    result.voice.vc_Type
-  };charset=utf-8;base64,${result.voice.vc.toString("base64")}`;
+  if (!result) return res.status(404).send("audio not found");
   res.contentType(result.voice.vc_Type);
   res.send(result.voice.vc);
+});
+
+router.get("*", (req, res) => {
+  res.redirect("/dashboard");
 });
 
 router.post("/uploadQuestion", async (req, res, next) => {

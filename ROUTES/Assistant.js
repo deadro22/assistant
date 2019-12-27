@@ -33,9 +33,11 @@ router.get("/", async (req, res) => {
 
     if (searchTag == "" || searchTag == null)
       return res.status(404).send("Not found");
-    const qst = await questions.findOne({
-      tag: { $regex: searchTag, $options: "i" }
-    });
+    const qst = await questions
+      .findOne({
+        tag: { $regex: searchTag, $options: "i" }
+      })
+      .select("-voice");
     if (qst == null) return res.status(404).send("Not found");
     res.send(qst);
   } catch (e) {
