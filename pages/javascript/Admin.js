@@ -1,4 +1,10 @@
 $(function() {
+  $(document).ready(() => {
+    if ($(window).width() <= 1199) {
+      window.location.href = "/admin/phone";
+    }
+  });
+
   $("#dev-table-filter").on("keyup", function() {
     var value = $(this)
       .val()

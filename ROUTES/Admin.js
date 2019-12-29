@@ -3,7 +3,7 @@ const router = express.Router();
 const { questions, tags } = require("../DATABASE/MongoSetup");
 const acceptedTypes = ["audio/mp3"];
 
-router.get("/admin/question", (req, res) => {
+router.get(["/admin/question", "/", "/admin"], (req, res) => {
   res.render("../pages/gererQuestion.ejs");
 });
 
@@ -51,6 +51,9 @@ router.get("/admin/deleteQuestion/:id", async (req, res) => {
 });
 router.get("/admin/error", (req, res) => {
   res.render("../pages/error.ejs");
+});
+router.get("/admin/phone", (req, res) => {
+  res.render("../pages/phone.ejs");
 });
 router.get("*", (req, res) => {
   res.redirect("/admin/error");
