@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const assistant = require("./ROUTES/Assistant");
 const admin = require("./ROUTES/Admin");
 
+app.use(express.static("./javascript"));
+app.use(express.static("./pages"));
+app.set("view engine", "ejs");
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
@@ -20,7 +23,7 @@ mongoose
   });
 
 app.use("/req", assistant);
-app.use("/", admin);
+app.use("/admin", admin);
 
 app.listen(process.env.PORT || 80, () => {
   console.log("listening on port 80");

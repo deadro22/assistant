@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <link href="/styles/admin.css" rel="stylesheet" />
+    <script src="javascript/Admin.js"></script>
+    <title>Admin | Gerer</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="col-md-5" id="add_fr">
+        <h3>Ajouter</h3>
+        <form method="POST" action="/admin/uploadQuestion" id="up_form">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label for="tagForm">Tag</label>
+                <input
+                  type="text"
+                  name="tag"
+                  class="form-control"
+                  id="tagForm"
+                  placeholder="example"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="titleForm">Titre ou question</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control"
+                  id="titleForm"
+                  placeholder="c'est quoi example ?"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label for="linkForm">Lien</label>
+                <input
+                  type="text"
+                  name="link"
+                  class="form-control"
+                  id="linkForm"
+                  placeholder="example.com"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="imageForm">Lien image</label>
+                <input
+                  name="image"
+                  type="text"
+                  class="form-control"
+                  id="imageForm"
+                  placeholder="adresse de l'image"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="defForm">Definition ou description</label>
+            <textarea
+              class="form-control"
+              id="defForm"
+              name="def"
+              rows="3"
+              placeholder="example c'est ..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="thumbForm">Choisir le fichier vocal</label>
+            <input type="file" class="filepond" name="thumb" id="thumbForm" />
+          </div>
+          <button type="submit" class="btn btn-success btn-lg btn-block">
+            Ajouter
+          </button>
+        </form>
+      </div>
+      <div
+        class="ml-1"
+        style="border-left:1px solid rgb(206, 206, 206);height:100vh"
+      ></div>
+      <div class="col-md-5 mr-auto ml-auto" id="prv_fr">
+        <h3>Supprimer</h3>
+        <form action="/admin/deleteQuestion" method="POST" id="dl_form">
+          <div class="form-group">
+            <label for="deleteTagForm">Tag</label>
+            <input
+              type="text"
+              class="form-control"
+              id="deleteTagForm"
+              name="tag"
+              placeholder="example"
+            />
+          </div>
+          <div class="form-group">
+            <label for="deleteTitleForm">Titre ou question(optional)</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="deleteTitleForm"
+              placeholder="c'est quoi example ?"
+            />
+          </div>
+          <button type="submit" class="btn btn-danger btn-lg btn-block">
+            Supprimer
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+      FilePond.registerPlugin(FilePondPluginFileEncode);
+      FilePond.setOptions({
+        stylePanelAspectRatio: 10 / 50
+      });
+      FilePond.parse(document.body);
+    </script>
+  </body>
+</html>

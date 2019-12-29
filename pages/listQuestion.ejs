@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <title>Admin | List</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="container-full mt-2 mr-auto ml-auto col-md-10">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dev-table-filter"
+                  data-action="filter"
+                  data-filters="#dev-table"
+                  placeholder="Rechercher"
+                />
+              </div>
+              <% if(f_qst != ""){%>
+              <table class="table table-hover" id="dev-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tag</th>
+                    <th>Titre</th>
+                    <th>Lien</th>
+                  </tr>
+                </thead>
+                <tbody id="q-table">
+                  <% var count =0; %> <%f_qst.forEach(function(qst) {%> <%
+                  count++%>
+                  <tr>
+                    <td><%=count%></td>
+                    <td><%=qst.tag%></td>
+                    <td><%=qst.title%></td>
+                    <td>
+                      <a
+                        href="/admin/question/<%=qst._id%>"
+                        style="color: white;text-decoration: none;"
+                        ><button type="button" class="btn btn-dark">
+                          Voir
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+              <%}else{%>
+              <div
+                class="col-md-4 mr-auto ml-auto mt-3"
+                style="text-align: center;"
+              >
+                <p style="font-size: 28px;">0 questions trouvés</p>
+                <p>Ajouter des question pour les voir et les gerer</p>
+              </div>
+              <%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

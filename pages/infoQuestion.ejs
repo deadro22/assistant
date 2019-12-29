@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <title>Admin | List</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center ">
+            <div class="panel panel-default">
+              <div class="userprofile social ">
+                <div class="userpic">
+                  <img
+                    src="<%= qst.image %>"
+                    alt=""
+                    class="userpicimg"
+                    width="600px"
+                    height="400px"
+                  />
+                </div>
+                <h2 class="username"><%= qst.title %></h2>
+                <h4><%= qst.tag %></h4>
+                <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>" /></audio>
+              </div>
+              <div class="col-md-12 mt-3 border-top border-bottom">
+                <p style="font-size: 25px;"><%= qst.definition %></p>
+                
+                <a
+                  href="/admin/deleteQuestion/<%=qst._id%>"
+                  style="color: white;text-decoration: none;"
+                  ><button class="btn btn-danger">Supprimer</button>
+                >
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

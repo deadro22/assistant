@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <title>Admin | List</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="container-full mr-auto ml-auto">
+        <div class="row">
+          <div class="col-md-12 mt-2">
+            <div class="error-template" style="text-align: center;">
+              <h2>
+                404 Not Found
+              </h2>
+              <div class="error-details">
+                <p>An error has occured</p>
+              </div>
+              <div class="error-actions mt-3">
+                <a href="/admin/list-question" class="btn btn-dark btn-lg"
+                  ><span class="glyphicon glyphicon-home"></span> Take Me Home
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
