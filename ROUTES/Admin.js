@@ -3,11 +3,11 @@ const router = express.Router();
 const { questions, tags } = require("../DATABASE/MongoSetup");
 const acceptedTypes = ["audio/mp3"];
 
-router.get("/question", (req, res) => {
+router.get("/admin/question", (req, res) => {
   res.render("../pages/gererQuestion.ejs");
 });
 
-router.get("/question/:id", async (req, res) => {
+router.get("/admin/question/:id", async (req, res) => {
   try {
     if (!req.params.id) return res.redirect("/admin/error");
 
@@ -21,7 +21,7 @@ router.get("/question/:id", async (req, res) => {
   }
 });
 
-router.get("/list-question", async (req, res) => {
+router.get("/admin/list-question", async (req, res) => {
   try {
     const f_qst = await questions.find().select("-voice");
     res.render("../pages/listQuestion.ejs", { f_qst });
@@ -36,7 +36,7 @@ router.get("/voice/:id", async (req, res) => {
   res.contentType(result.voice.vc_Type);
   res.send(result.voice.vc);
 });
-router.get("/deleteQuestion/:id", async (req, res) => {
+router.get("/admin/deleteQuestion/:id", async (req, res) => {
   try {
     if (!req.params.id || req.params.id == "")
       return res.redirect("/admin/error");
@@ -49,14 +49,14 @@ router.get("/deleteQuestion/:id", async (req, res) => {
     res.redirect("/admin/error");
   }
 });
-router.get("/error", (req, res) => {
+router.get("/admin/error", (req, res) => {
   res.render("../pages/error.ejs");
 });
 router.get("*", (req, res) => {
   res.redirect("/admin/error");
 });
 
-router.post("/deleteQuestion", async (req, res) => {
+router.post("/admin/deleteQuestion", async (req, res) => {
   try {
     if (!req.body.tag || req.body.tag == "")
       return res.redirect("/admin/error");
@@ -70,7 +70,7 @@ router.post("/deleteQuestion", async (req, res) => {
   }
 });
 
-router.post("/uploadQuestion", async (req, res, next) => {
+router.post("/admin/uploadQuestion", async (req, res, next) => {
   try {
     if (req.body.title == "" || req.body.def == "" || req.body.tag == "")
       return res.redirect("/admin/error");

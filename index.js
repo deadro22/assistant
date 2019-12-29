@@ -3,7 +3,19 @@ const app = express();
 const mongoose = require("mongoose");
 const assistant = require("./ROUTES/Assistant");
 const admin = require("./ROUTES/Admin");
+const cors = require("cors");
 
+//const whitelist = ["https://ztassistant.herokuapp.com",];
+/*const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};*/
+//app.use(cors(corsOptions));
 app.use(express.static("./javascript"));
 app.use(express.static("./pages"));
 app.set("view engine", "ejs");
@@ -23,7 +35,7 @@ mongoose
   });
 
 app.use("/req", assistant);
-app.use("/admin", admin);
+app.use("/", admin);
 
 app.listen(process.env.PORT || 80, () => {
   console.log("listening on port 80");
