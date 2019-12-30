@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { questions, tags } = require("../DATABASE/MongoSetup");
+const Fuse = require("fuse.js");
 
 router.get("/", async (req, res) => {
   try {
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
     let divTag = [];
     let tt = "";
     let test = "";
+    let numT = "";
     let searchWords = req.query.title
       .replace(/\s\s+/, "")
       .toLowerCase()
@@ -27,18 +29,37 @@ router.get("/", async (req, res) => {
             utt++;
             if (finalUtt < utt) {
               finalUtt = utt;
-              test = ftag[t_ind].tag;
-              if (finalUtt >= 2) {
-                if (finalTag.indexOf(tag.tag) === -1) {
-                  divTag = tag.tag.split(" ");
-                  finalTag.push(tag.tag);
-                }
-                tt = searchWords[ind + 1];
-                if (divTag.length === 1) {
-                  searchTag = finalTag.join(" ");
+              if (finalUtt >= 4) {
+                var options = {
+                  shouldSort: true,
+                  threshold: 0.6,
+                  location: 0,
+                  distance: 100,
+                  maxPatternLength: 32,
+                  minMatchCharLength: 1,
+                  keys: ["tag"]
+                };
+                var fuse = new Fuse(ftag, options); // "list" is the item array
+                let tTag = tag.tag.split(" ");
+                console.log(tTag);
+                if (tTag.length === 1) {
+                  console.log("1");
+                  var result = fuse.search(searchWords[ind]);
+                } else if (
+                  tTag.length > 1 &&
+                  searchWords[ind + 1] === undefined
+                ) {
+                  console.log("Please be more specific");
+                  break;
                 } else {
-                  utt = 0;
-                  searchTag = divTag[0] + " " + divTag[1];
+                  console.log("2");
+                  var result = fuse.search(
+                    searchWords[ind] + searchWords[ind + 1]
+                  );
+                }
+                if (searchTag == "") {
+                  searchTag = result[0].tag;
+                  break;
                 }
               }
             }
