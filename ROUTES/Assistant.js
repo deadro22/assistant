@@ -38,19 +38,7 @@ router.get("/", async (req, res) => {
                   searchTag = finalTag.join(" ");
                 } else {
                   utt = 0;
-                  console.log(test);
-                  for (i = 0; i < tt.length; i++) {
-                    if (tt[i] === divTag[1][i]) {
-                      utt++;
-                      if (finalUtt < utt) {
-                        finalUtt = utt;
-                        if (finalUtt >= 2) {
-                          searchTag = divTag[0] + " " + divTag[1];
-                          console.log(searchTag);
-                        }
-                      }
-                    }
-                  }
+                  searchTag = divTag[0] + " " + divTag[1];
                 }
               }
             }
