@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
     let finalUtt = 0;
     let divTag = [];
     let tt = "";
+    let test = "";
     let searchWords = req.query.title
       .replace(/\s\s+/, "")
       .toLowerCase()
@@ -26,16 +27,30 @@ router.get("/", async (req, res) => {
             utt++;
             if (finalUtt < utt) {
               finalUtt = utt;
-              if (finalUtt > 1) {
+              test = ftag[t_ind].tag;
+              if (finalUtt >= 2) {
                 if (finalTag.indexOf(tag.tag) === -1) {
                   divTag = tag.tag.split(" ");
                   finalTag.push(tag.tag);
-                  tt = searchWords[ind + 1];
                 }
+                tt = searchWords[ind + 1];
                 if (divTag.length === 1) {
                   searchTag = finalTag.join(" ");
                 } else {
-                  searchTag = divTag[0] + " " + tt;
+                  utt = 0;
+                  console.log(test);
+                  for (i = 0; i < tt.length; i++) {
+                    if (tt[i] === divTag[1][i]) {
+                      utt++;
+                      if (finalUtt < utt) {
+                        finalUtt = utt;
+                        if (finalUtt >= 2) {
+                          searchTag = divTag[0] + " " + divTag[1];
+                          console.log(searchTag);
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
