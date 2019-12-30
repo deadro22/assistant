@@ -12,10 +12,6 @@ router.get("/", async (req, res) => {
     let searchTag = "";
     let utt = 0;
     let finalUtt = 0;
-    let divTag = [];
-    let tt = "";
-    let test = "";
-    let numT = "";
     let searchWords = req.query.title
       .replace(/\s\s+/, "")
       .toLowerCase()
@@ -41,9 +37,7 @@ router.get("/", async (req, res) => {
                 };
                 var fuse = new Fuse(ftag, options); // "list" is the item array
                 let tTag = tag.tag.split(" ");
-                console.log(tTag);
                 if (tTag.length === 1) {
-                  console.log("1");
                   var result = fuse.search(searchWords[ind]);
                 } else if (
                   tTag.length > 1 &&
@@ -52,7 +46,6 @@ router.get("/", async (req, res) => {
                   console.log("Please be more specific");
                   break;
                 } else {
-                  console.log("2");
                   var result = fuse.search(
                     searchWords[ind] + searchWords[ind + 1]
                   );
