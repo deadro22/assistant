@@ -8,30 +8,52 @@ router.get("/", async (req, res) => {
       return res.status(500).send("No provided Question tag");
     const ftag = await tags.find().select("-_id tag");
 
-    let newTag = "";
     let searchTag = "";
+    let utt = 0;
     let finalUtt = 0;
-    //search code
-    let wordArr = req.query.title.split(" ");
-    wordArr.forEach(word => {
+    let secUtt = 0;
+    let searchWords = req.query.title
+      .replace(/\s\s+/, "")
+      .toLowerCase()
+      .split(" ");
+    searchWords.forEach((word, ind) => {
       ftag.forEach(tag => {
-        newTag = word;
-        let utt = 0;
-        for (i = 0; i < newTag.length; i++) {
-          if (newTag[i] == tag.tag[i]) {
-            utt++;
-            if (finalUtt < utt) {
-              finalUtt = utt;
-              if (finalUtt > 1) {
-                searchTag = tag.tag;
+        let j_tag = tag.tag.split(" ");
+        j_tag.forEach(jtag => {
+          for (i = 0; i < word.length; i++) {
+            if (word[i] === jtag[i]) {
+              utt++;
+              if (finalUtt < utt) {
+                finalUtt = utt;
+                utt = 0;
+                if (finalUtt > 1) {
+                  if (j_tag.length == 1) {
+                    searchTag = tag.tag;
+                  } else {
+                    let tt = searchWords[ind] + " " + searchWords[ind + 1];
+                    for (i = 0; i < tt.length; i++) {
+                      if (tt[i] === tag.tag[i]) {
+                        utt++;
+                        if (secUtt < utt) {
+                          secUtt = utt;
+                          utt = 0;
+                          if (secUtt > 1) {
+                            if (secUtt > finalUtt) {
+                              searchTag = tag.tag;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
-        }
+        });
       });
     });
-
-    if (searchTag == "" || searchTag == null)
+    if (searchTag == "" || searchTag == null || searchTag === undefined)
       return res.status(404).send("Not found");
     const qst = await questions
       .findOne({
