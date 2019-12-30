@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
             utt++;
             if (finalUtt < utt) {
               finalUtt = utt;
-              if (finalUtt > 4) {
+              if (finalUtt > 1) {
                 if (finalTag.indexOf(tag.tag) === -1) {
                   divTag = tag.tag.split(" ");
                   finalTag.push(tag.tag);
