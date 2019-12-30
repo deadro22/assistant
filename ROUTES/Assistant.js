@@ -11,46 +11,36 @@ router.get("/", async (req, res) => {
     let searchTag = "";
     let utt = 0;
     let finalUtt = 0;
-    let secUtt = 0;
+    let divTag = [];
+    let tt = "";
     let searchWords = req.query.title
       .replace(/\s\s+/, "")
       .toLowerCase()
       .split(" ");
-    searchWords.forEach((word, ind) => {
-      ftag.forEach(tag => {
-        let j_tag = tag.tag.split(" ");
-        j_tag.forEach(jtag => {
-          for (i = 0; i < word.length; i++) {
-            if (word[i] === jtag[i]) {
-              utt++;
-              if (finalUtt < utt) {
-                finalUtt = utt;
-                utt = 0;
-                if (finalUtt > 1) {
-                  if (j_tag.length == 1) {
-                    searchTag = tag.tag;
-                  } else {
-                    let tt = searchWords[ind] + " " + searchWords[ind + 1];
-                    for (i = 0; i < tt.length; i++) {
-                      if (tt[i] === tag.tag[i]) {
-                        utt++;
-                        if (secUtt < utt) {
-                          secUtt = utt;
-                          utt = 0;
-                          if (secUtt > 1) {
-                            if (secUtt > finalUtt) {
-                              searchTag = tag.tag;
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+    finalTag = [];
+    ftag.forEach((tag, t_ind) => {
+      searchWords.forEach((word, ind) => {
+        utt = 0;
+        for (i = 0; i < word.length; i++) {
+          if (word[i] === tag.tag[i]) {
+            utt++;
+            if (finalUtt < utt) {
+              finalUtt = utt;
+              if (finalUtt > 4) {
+                if (finalTag.indexOf(tag.tag) === -1) {
+                  divTag = tag.tag.split(" ");
+                  finalTag.push(tag.tag);
+                  tt = searchWords[ind + 1];
+                }
+                if (divTag.length === 1) {
+                  searchTag = finalTag.join(" ");
+                } else {
+                  searchTag = divTag[0] + " " + tt;
                 }
               }
             }
           }
-        });
+        }
       });
     });
     if (searchTag == "" || searchTag == null || searchTag === undefined)
