@@ -79,7 +79,7 @@ router.get("/", async (req, res) => {
         .select("-voice");
     }
     if (qst == null) return res.status(404).send("Not found");
-    res.send({ qst, hasDetails });
+    res.send({ qst, hasDetails, searchTag });
   } catch (e) {
     res.status(500).send("There was an error");
     console.log(e);
