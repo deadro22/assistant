@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
       .replace(/\s\s+/, "")
       .toLowerCase()
       .split(" ");
+    let hasDetails = false;
     finalTag = [];
     ftag.forEach((tag, t_ind) => {
       searchWords.forEach((word, ind) => {
@@ -43,7 +44,8 @@ router.get("/", async (req, res) => {
                   tTag.length > 1 &&
                   searchWords[ind + 1] === undefined
                 ) {
-                  console.log("Please be more specific");
+                  hasDetails = true;
+                  searchTag = tTag[0];
                   break;
                 } else {
                   var result = fuse.search(
@@ -62,13 +64,22 @@ router.get("/", async (req, res) => {
     });
     if (searchTag == "" || searchTag == null || searchTag === undefined)
       return res.status(404).send("Not found");
-    const qst = await questions
-      .findOne({
-        tag: { $regex: searchTag, $options: "i" }
-      })
-      .select("-voice");
+    let qst;
+    if (hasDetails) {
+      qst = await questions
+        .find({
+          tag: { $regex: searchTag, $options: "i" }
+        })
+        .select("-voice");
+    } else {
+      qst = await questions
+        .findOne({
+          tag: { $regex: searchTag, $options: "i" }
+        })
+        .select("-voice");
+    }
     if (qst == null) return res.status(404).send("Not found");
-    res.send(qst);
+    res.send({ qst, hasDetails });
   } catch (e) {
     res.status(500).send("There was an error");
     console.log(e);
