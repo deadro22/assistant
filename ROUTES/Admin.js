@@ -84,8 +84,6 @@ router.post("/admin/uploadQuestion", async (req, res, next) => {
     const checkTag = await tags.findOne({ tag: req.body.tag });
     if (checkTag) return res.redirect("/admin/error");
     const cover = JSON.parse(req.body.thumb);
-    if (cover == null || !acceptedTypes.includes(cover.type))
-      return res.redirect("/admin/error");
 
     const qst = new questions({
       tag: req.body.tag,
