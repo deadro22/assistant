@@ -95,16 +95,17 @@ router.post("/admin/uploadQuestion", async (req, res, next) => {
       image: req.body.image,
       voice: {
         vc: new Buffer.from(cover.data, "base64"),
-        vc_Type: cover.type
-      }
+        vc_Type: cover.type,
+      },
     });
     const tag = new tags({
-      tag: req.body.tag
+      tag: req.body.tag,
     });
     const savedQst = await qst.save();
     const savedTag = await tag.save();
     res.redirect("/admin/question/" + savedQst._id);
   } catch (error) {
+    console.log(error);
     res.redirect("/admin/error");
   }
 });
