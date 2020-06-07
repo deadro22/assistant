@@ -1,24 +1,17 @@
-$(function() {
+$(function () {
   $(document).ready(() => {
     if ($(window).width() <= 1199) {
       window.location.href = "/admin/phone";
     }
   });
 
-  $("#dev-table-filter").on("keyup", function() {
-    var value = $(this)
-      .val()
-      .toLowerCase();
-    $("#q-table tr").filter(function() {
-      $(this).toggle(
-        $(this)
-          .text()
-          .toLowerCase()
-          .indexOf(value) > -1
-      );
+  $("#dev-table-filter").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#q-table tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
-  $("#up_form").on("submit", function(e) {
+  $("#up_form").on("submit", function (e) {
     if (
       $("#titleForm").val() == "" ||
       $("#linkForm").val() == "" ||
@@ -46,7 +39,7 @@ $(function() {
     </div>`);
     }
   });
-  $("#dl_form").on("submit", function(e) {
+  $("#dl_form").on("submit", function (e) {
     if ($("#deleteTagForm").val() == "") {
       e.preventDefault();
     }

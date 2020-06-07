@@ -77,8 +77,14 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label for="thumbForm">Choisir le fichier vocal</label>
-            <input type="file" class="filepond" name="thumb" id="thumbForm" />
+            <label for="thumbForm">Choisir les fichier vocal</label>
+            <input
+              type="file"
+              class="filepond"
+              name="thumb"
+              id="thumbForm"
+              multiple
+            />
           </div>
           <button type="submit" class="btn btn-success btn-lg btn-block">
             Ajouter
@@ -87,7 +93,7 @@
       </div>
       <div
         class="ml-1"
-        style="border-left:1px solid rgb(206, 206, 206);height:100vh"
+        style="border-left: 1px solid rgb(206, 206, 206); height: 100vh;"
       ></div>
       <div class="col-md-5 mr-auto ml-auto" id="prv_fr">
         <h3>Supprimer</h3>
@@ -123,7 +129,7 @@
     <script>
       FilePond.registerPlugin(FilePondPluginFileEncode);
       FilePond.setOptions({
-        stylePanelAspectRatio: 10 / 50
+        stylePanelAspectRatio: 10 / 50,
       });
       FilePond.parse(document.body);
     </script>

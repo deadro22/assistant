@@ -6,10 +6,12 @@ const question = new mongoose.Schema({
   definition: [{ type: String, required: true }],
   link: { type: String },
   image: { type: String },
-  voice: {
-    vc: { type: Buffer, required: true },
-    vc_Type: { type: String, required: true },
-  },
+  voice: [
+    {
+      vc: { type: Buffer },
+      vc_Type: { type: String },
+    },
+  ],
 });
 const tag = mongoose.Schema({
   tag: { type: String, required: true, lowercase: true },

@@ -10,7 +10,6 @@ router.get(["/admin/question", "/", "/admin"], (req, res) => {
 router.get("/admin/question/:id", async (req, res) => {
   try {
     if (!req.params.id) return res.redirect("/admin/error");
-
     const qst = await questions
       .findOne({ _id: req.params.id })
       .select("-voice");
@@ -29,12 +28,13 @@ router.get("/admin/list-question", async (req, res) => {
     res.redirect("/admin/error");
   }
 });
-router.get("/voice/:id", async (req, res) => {
-  const result = await questions.findOne({ _id: req.params.id });
+router.get("/voice/:id/:v_id", async (req, res) => {
+  const result = await questions
+    .findOne({ _id: req.params.id })
+    .select("voice");
   if (!result) return res.redirect("/admin/error");
-
-  res.contentType(result.voice.vc_Type);
-  res.send(result.voice.vc);
+  res.contentType(result.voice[req.params.v_id].vc_Type);
+  res.send(result.voice[req.params.v_id].vc);
 });
 router.get("/admin/deleteQuestion/:id", async (req, res) => {
   try {
@@ -73,7 +73,7 @@ router.post("/admin/deleteQuestion", async (req, res) => {
   }
 });
 
-router.post("/admin/uploadQuestion", async (req, res, next) => {
+router.post("/admin/uploadQuestion", async (req, res) => {
   try {
     if (req.body.title == "" || req.body.def == "" || req.body.tag == "")
       return res.redirect("/admin/error");
@@ -83,26 +83,28 @@ router.post("/admin/uploadQuestion", async (req, res, next) => {
 
     const checkTag = await tags.findOne({ tag: req.body.tag });
     if (checkTag) return res.redirect("/admin/error");
-    const cover = JSON.parse(req.body.thumb);
-
-    let splitDef = req.body.def.split("-");
-
+    let vocalsTotal = [];
+    let splitDef = req.body.def.trim().split("-");
     const qst = new questions({
       tag: req.body.tag,
       title: req.body.title,
       definition: splitDef,
       link: req.body.link,
       image: req.body.image,
-      voice: {
-        vc: new Buffer.from(cover.data, "base64"),
-        vc_Type: cover.type,
-      },
     });
     const tag = new tags({
       tag: req.body.tag,
     });
     const savedQst = await qst.save();
-    const savedTag = await tag.save();
+    for (let i = 0; i < req.body.thumb.length; i++) {
+      vocalsTotal.push(JSON.parse(req.body.thumb[i]));
+      savedQst.voice.push({
+        vc_Type: vocalsTotal[i].type,
+        vc: new Buffer.from(vocalsTotal[i].data, "base64"),
+      });
+    }
+    await tag.save();
+    await savedQst.save();
     res.redirect("/admin/question/" + savedQst._id);
   } catch (error) {
     console.log(error);

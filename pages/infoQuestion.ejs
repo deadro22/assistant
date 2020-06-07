@@ -23,7 +23,12 @@
                 </div>
                 <h2 class="username"><%= qst.title %></h2>
                 <h4><%= qst.tag %></h4>
-                <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>" /></audio>
+                <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/0" /></audio>
+                  <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/1" /></audio>
+                    <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/2" /></audio>
+                      <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/3" /></audio>
+                        <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/4" /></audio>
+                          <audio controls class="ml-auto mr-auto"><source src="https://ztassistant.herokuapp.com/voice/<%= qst._id%>/5" /></audio>
               </div>
               <div class="col-md-12 mt-3 border-top border-bottom">
                 <p style="font-size: 25px;"><%= qst.definition %></p>
