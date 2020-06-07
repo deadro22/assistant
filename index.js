@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const assistant = require("./ROUTES/Assistant");
 const admin = require("./ROUTES/Admin");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 //const whitelist = ["https://ztassistant.herokuapp.com",];
 /*const corsOptions = {
@@ -15,6 +16,7 @@ const cors = require("cors");
     }
   }
 };*/
+dotenv.config();
 //app.use(cors(corsOptions));
 app.use(express.static("./javascript"));
 app.use(express.static("./pages"));
@@ -23,14 +25,11 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 mongoose
-  .connect(
-    "mongodb://heroku_gs4984rm:qv5fa96u48efobbrs1u253bs1t@ds111066.mlab.com:11066/heroku_gs4984rm",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  )
-  .then(conn => {
+  .connect(process.env.DR_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((conn) => {
     console.log("Connected");
   });
 

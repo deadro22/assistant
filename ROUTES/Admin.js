@@ -42,8 +42,8 @@ router.get("/admin/deleteQuestion/:id", async (req, res) => {
       return res.redirect("/admin/error");
     const deleteQst = await questions.findOne({ _id: req.params.id });
     if (!deleteQst) return res.redirect("/admin/error");
-    const dQst = await questions.deleteOne({ _id: req.params.id });
-    const dtag = await tags.deleteOne({ tag: deleteQst.tag });
+    await questions.deleteOne({ _id: req.params.id });
+    await tags.deleteOne({ tag: deleteQst.tag });
     res.redirect("/admin/question");
   } catch (e) {
     res.redirect("/admin/error");
@@ -85,10 +85,12 @@ router.post("/admin/uploadQuestion", async (req, res, next) => {
     if (checkTag) return res.redirect("/admin/error");
     const cover = JSON.parse(req.body.thumb);
 
+    let splitDef = req.body.def.split("-");
+
     const qst = new questions({
       tag: req.body.tag,
       title: req.body.title,
-      definition: req.body.def,
+      definition: splitDef,
       link: req.body.link,
       image: req.body.image,
       voice: {
