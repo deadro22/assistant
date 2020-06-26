@@ -1,5 +1,5 @@
 $(() => {
-  $.get("http://localhost/stats/global/data", (data) => {
+  $.get("https://ztassistant.herokuapp.com/stats/global/data", (data) => {
     console.log(data);
     data.forEach((dt, index) => {
       $(".statsHolder").append(
