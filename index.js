@@ -5,7 +5,8 @@ const assistant = require("./ROUTES/Assistant");
 const admin = require("./ROUTES/Admin");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
+const news = require("./ROUTES/News");
+const stats = require("./ROUTES/Stats");
 //const whitelist = ["https://ztassistant.herokuapp.com",];
 /*const corsOptions = {
   origin: function(origin, callback) {
@@ -35,6 +36,12 @@ mongoose
 
 app.use("/req", assistant);
 app.use("/", admin);
+app.use("/admin/news", news);
+app.use("/stats", stats);
+
+app.get("*", (req, res) => {
+  res.redirect("/admin/error");
+});
 
 app.listen(process.env.PORT || 80, () => {
   console.log("listening on port 80");

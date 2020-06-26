@@ -17,7 +17,8 @@ $(function () {
       $("#linkForm").val() == "" ||
       $("#tagForm").val() == "" ||
       $("#defForm").val() == "" ||
-      $("#imageForm").val() == ""
+      $("#imageForm").val() == "" ||
+      $("#thumb")[0].files.length < 7
     ) {
       e.preventDefault();
     } else {
@@ -41,6 +42,11 @@ $(function () {
   });
   $("#dl_form").on("submit", function (e) {
     if ($("#deleteTagForm").val() == "") {
+      e.preventDefault();
+    }
+  });
+  $("#news_dl_form").on("submit", function (e) {
+    if ($("#deleteTitleForm").val() == "") {
       e.preventDefault();
     }
   });

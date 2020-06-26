@@ -5,6 +5,11 @@
     <link href="/styles/admin.css" rel="stylesheet" />
     <script src="javascript/Admin.js"></script>
     <title>Admin | Gerer</title>
+    <style>
+      .filepond--item {
+        width: calc(50% - 0.5em);
+      }
+    </style>
   </head>
   <body>
     <div class="d-flex" id="wrapper">
@@ -93,7 +98,7 @@
       </div>
       <div
         class="ml-1"
-        style="border-left: 1px solid rgb(206, 206, 206); height: 100vh;"
+        style="border-left: 1px solid rgb(206, 206, 206); height: auto;"
       ></div>
       <div class="col-md-5 mr-auto ml-auto" id="prv_fr">
         <h3>Supprimer</h3>
@@ -128,9 +133,7 @@
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script>
       FilePond.registerPlugin(FilePondPluginFileEncode);
-      FilePond.setOptions({
-        stylePanelAspectRatio: 10 / 50,
-      });
+      FilePond.setOptions({});
       FilePond.parse(document.body);
     </script>
   </body>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <link href="/styles/admin.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+      rel="stylesheet"
+    />
+    <script src="javascript/Admin.js"></script>
+    <title>Admin | Gerer</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="col-md-5" id="add_fr">
+        <h3>Ajouter</h3>
+        <form method="POST" action="/admin/news/" id="up_form">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group">
+                <label for="titleForm">Titre</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control"
+                  id="titleForm"
+                  placeholder="c'est quoi example ?"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="defForm">Contenu</label>
+            <textarea
+              class="form-control"
+              id="defForm"
+              name="content"
+              rows="3"
+              placeholder="example c'est ..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="thumbForm">Choisir L'image</label>
+            <input
+              type="file"
+              class="filepond"
+              name="thumb"
+              id="thumbForm"
+              allow-image-resize="true"
+            />
+          </div>
+          <button type="submit" class="btn btn-success btn-lg btn-block">
+            Ajouter
+          </button>
+        </form>
+      </div>
+      <div
+        class="ml-1"
+        style="border-left: 1px solid rgb(206, 206, 206); height: 100vh;"
+      ></div>
+      <div class="col-md-5 mr-auto ml-auto" id="prv_fr">
+        <h3>Supprimer</h3>
+        <form action="/admin/news/delete" method="POST" id="news_dl_form">
+          <div class="form-group">
+            <label for="deleteTitleForm">Titre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="deleteTitleForm"
+              placeholder="Titre de l'actualité..."
+            />
+          </div>
+          <button type="submit" class="btn btn-danger btn-lg btn-block">
+            Supprimer
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+      FilePond.registerPlugin(FilePondPluginFileEncode);
+      FilePond.registerPlugin(FilePondPluginImageResize);
+      FilePond.registerPlugin(FilePondPluginImagePreview);
+      FilePond.parse(document.body);
+    </script>
+  </body>
+</html>

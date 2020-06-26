@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { questions, tags } = require("../DATABASE/MongoSetup");
+const { questions, tags, stats } = require("../DATABASE/MongoSetup");
 const Fuse = require("fuse.js");
 
 router.get("/", async (req, res) => {
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
                   distance: 100,
                   maxPatternLength: 32,
                   minMatchCharLength: 1,
-                  keys: ["tag"]
+                  keys: ["tag"],
                 };
                 var fuse = new Fuse(ftag, options); // "list" is the item array
                 let tTag = tag.tag.split(" ");
@@ -68,18 +68,25 @@ router.get("/", async (req, res) => {
     if (hasDetails) {
       qst = await questions
         .find({
-          tag: { $regex: searchTag, $options: "i" }
+          tag: { $regex: searchTag, $options: "i" },
         })
         .select("-voice");
     } else {
       qst = await questions
         .findOne({
-          tag: { $regex: searchTag, $options: "i" }
+          tag: { $regex: searchTag, $options: "i" },
         })
         .select("-voice");
     }
     if (qst == null) return res.status(404).send("Not found");
     res.send({ qst, hasDetails, searchTag });
+    if (!hasDetails) {
+      await stats.updateOne(
+        { question: qst._id },
+        { $inc: { views: 1 } },
+        { upsert: true }
+      );
+    }
   } catch (e) {
     res.status(500).send("There was an error");
     console.log(e);

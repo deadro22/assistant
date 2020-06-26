@@ -1,0 +1,10 @@
+.statsHolder {
+  padding: 0.5em;
+  height: 40vh;
+  width: 40vh;
+  display: flex;
+}
+.mn_chartStat,
+.mn_chartStatSub {
+  margin: 1em;
+}

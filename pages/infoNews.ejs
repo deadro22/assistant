@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <title>Admin | List</title>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center ">
+            <div class="panel panel-default">
+              <div class="userprofile social ">
+                <div class="userpic">
+                  <img
+                    src="https://ztassistant.herokuapp.com/admin/news/<%= f_news._id%>/image"
+                    alt=""
+                    class="userpicimg"
+                    width="600px"
+                    height="400px"
+                  />
+                </div>
+                <h2 class="username"><%= f_news.title %></h2>
+              </div>
+              <div class="col-md-12 mt-3 border-top border-bottom">
+                <p style="font-size: 25px;"><%= f_news.definition %></p>
+                
+                <a
+                  href="/admin/news/<%=f_news._id%>/delete"
+                  style="color: white;text-decoration: none;"
+                  ><button class="btn btn-danger">Supprimer</button>
+                >
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

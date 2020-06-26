@@ -55,9 +55,6 @@ router.get("/admin/error", (req, res) => {
 router.get("/admin/phone", (req, res) => {
   res.render("../pages/phone.ejs");
 });
-router.get("*", (req, res) => {
-  res.redirect("/admin/error");
-});
 
 router.post("/admin/deleteQuestion", async (req, res) => {
   try {

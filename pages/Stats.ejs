@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('header') %>
+    <title>Admin | List</title>
+    <link rel="stylesheet" href="/styles/stats.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
+      integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascript/Stats.js"></script>
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <%- include('navMenu') %>
+      <div class="container-full">
+        <h3 style="margin: 1em;">Ajouter</h3>
+        <h4 style="margin: 1em;">
+          Touts les statistiques des produits:
+        </h4>
+        <div class="row">
+          <div class="col-md-12 mt-2">
+            <div class="statsHolder"></div>
+            <h4 style="margin: 1em;">
+              Touts les statistiques de kalamni assistant:
+            </h4>
+            <div class="global-statsHolder"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
